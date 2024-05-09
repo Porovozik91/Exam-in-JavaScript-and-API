@@ -16,8 +16,45 @@
     </header>
     <main>
         <aside></aside>
-        <section></section>
+        <section>
+            <div id="game_filter">
+                <h2>Game Filter</h2>
+                <div>
+                    <label for="genre">Genre:</label>
+                    <select id="genre" onchange="filterGames()">
+                        <option value="action">Action</option>
+                        <option value="strategy">Strategy</option>
+                        <option value="rpg">RPG</option>
+                        <option value="shooter">Shooter</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="puzzle">Puzzle</option>
+                        <option value="racing">Racing</option>
+                        <option value="sports">Sports</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="platform">Platform:</label>
+                    <select id="platform" onchange="filterGames()">
+                        <option value="pc">PC</option>
+                        <option value="playstation">PlayStation</option>
+                        <option value="xbox">Xbox</option>
+                        <option value="nintendo">Nintendo</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="year">Year:</label>
+                    <input type="text" id="year" placeholder="Enter year" onkeyup="filterGames()">
+                </div>
+            </div>
+            <div id="game_container">
+            </div>
+            <div class="page_buttons">
+                <button id="show_more">Show more games</button>
+                <button id="show_less">Show less games</button>
+            </div>
+        </section>
     </main>
-    <script src="./js/index.js"></script>
+    <script src="./js/env.js"></script>
+    <script type="module" src="./js/index.js"></script>
 </body>
 </html>
