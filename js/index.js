@@ -1,12 +1,14 @@
 // Globale varibler
 const gamesContainer = document.getElementById("games_container");
+const searchForm = document.getElementById('search_for_games');
+const searchInput = document.getElementById('search_input');
 const showLessButton = document.getElementById("show_less");
 const showMoreButton = document.getElementById("show_more");
 
 // addEventListenere til knapper
+searchInput.addEventListener('input', performSearch);
 showLessButton.addEventListener("click", showLessGames);
 showMoreButton.addEventListener("click", showMoreGames);
-
 
 
 // styling for globale variabler
@@ -26,8 +28,11 @@ let currentPage = 1;
 let allGames = [];
 
 // Async funksjon for å hente spilldata fra API
-async function fetchAndDisplay(fromPage = 1) {
-    const url = `https://api.rawg.io/api/games?key=${apiKey}&page=${fromPage}&page_size=40`;
+async function fetchAndDisplay(searchedGames = "",fromPage = 1) {
+    let url = `https://api.rawg.io/api/games?key=${apiKey}&page=${fromPage}&page_size=40`;
+    if (searchedGames) {
+        url += `&search=${searchedGames}`;
+    }
     try {
         const res = await fetch(url);
         if (!res.ok) {
@@ -44,7 +49,7 @@ async function fetchAndDisplay(fromPage = 1) {
 
 async function displayAllGames() {
     try {
-        allGames = await fetchAndDisplay(currentPage);
+        allGames = await fetchAndDisplay("", currentPage);
         if (currentPage <= 1) {
             showLessButton.style.display = "none";
         } else {
@@ -144,11 +149,8 @@ function gameElements(game) {
     return createGameDiv;
 }
 
-// overføring
-function goToGameInfo(gameId) {
-    const infoPage = `game-info.html?gameId=${gameId}`;
-    location.href = infoPage;
-}
+
+
 
 // Funksjon for å oppdatere visningen av spill
 function updateDisplayGames(games) {
@@ -160,6 +162,24 @@ function updateDisplayGames(games) {
             const gameElement = gameElements(game);
             gamesContainer.appendChild(gameElement);
         });
+    }
+}
+
+searchForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    performSearch();
+});
+
+async function performSearch() {
+    const searched = searchInput.value.trim();
+    if (searched) {
+        [showMoreButton, showLessButton].forEach(element => {
+            element.style.display = "none";
+        });        
+        const searchedGames = await fetchAndDisplay(searched);
+        updateDisplayGames(searchedGames, gamesContainer);
+    } else {
+        searchInput.placeholder = 'Please enter a game name';
     }
 }
 
@@ -177,5 +197,10 @@ function showMoreGames() {
     displayAllGames();
 }
 
+// overføring
+function goToGameInfo(gameId) {
+    const infoPage = `game-info.html?gameId=${gameId}`;
+    location.href = infoPage;
+}
 // Kjører funksjonen for å vise spillene når siden lastes
 displayAllGames();
