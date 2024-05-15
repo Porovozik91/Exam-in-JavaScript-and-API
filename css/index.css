@@ -6,17 +6,52 @@
     width: 350px;
     height: 380px;
     padding: 20px;
-    text-align: center;
-    color: black;
 }
 
 .first_gameName, .second_gameName, .game_name{
    font-size: 24px;
    font-weight: bold;
+   color: white;
 }
 
-.show_game_info{
+p{
+    color: white;
+}
+
+
+.page_navbtn{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.show_more, .show_less{
     font-size: 20px;
     font-weight: bold;
-    color: black;
+    color: rgb(0, 0, 0);
+    background-color: #fcfcfc;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+.show_more:hover, .show_less:hover{
+    background-color: #3e5734; 
+    color: white;
+}
+
+.games{
+    padding-bottom: 20px;
+}
+
+.search_games{
+    padding-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+#search_input{
+    width: 80vw;
+    height: 50px;
+    border-radius: 30px;
+    padding-left: 20px;
+    font-size: 22px;
 }

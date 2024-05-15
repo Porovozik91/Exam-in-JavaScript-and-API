@@ -1,5 +1,12 @@
 // Globale varibler
 const gamesContainer = document.getElementById("games_container");
+const showLessButton = document.getElementById("show_less");
+const showMoreButton = document.getElementById("show_more");
+
+// addEventListenere til knapper
+showLessButton.addEventListener("click", showLessGames);
+showMoreButton.addEventListener("click", showMoreGames);
+
 
 
 // styling for globale variabler
@@ -7,61 +14,73 @@ gamesContainer.style.display = "flex";
 gamesContainer.style.flexWrap = "wrap";
 gamesContainer.style.justifyContent = "center";
 gamesContainer.style.gap = "2rem";
-gamesContainer.style.padding = "40px";
+gamesContainer.style.padding = "20px";
 gamesContainer.style.margin = "30px";
+gamesContainer.style.maxHeight = "70vh";
+gamesContainer.style.overflowY = "auto";
 
 
 // Api
 const apiKey = "e14d894ca94643c489dcbb1a5f660d26";
-const url = `https://api.rawg.io/api/games?key=${apiKey}`;
+let currentPage = 1;
+let allGames = [];
 
-// Async await funksjon for fecthe api med get/ Henter spill data
-async function fetchAndDisplay() {
+// Async funksjon for å hente spilldata fra API
+async function fetchAndDisplay(fromPage = 1) {
+    const url = `https://api.rawg.io/api/games?key=${apiKey}&page=${fromPage}&page_size=40`;
     try {
         const res = await fetch(url);
         if (!res.ok) {
-            throw new Error("Network status not ok")
+            throw new Error("Failed to fetch games. Please try again later.");
         }
         const gameData = await res.json();
         console.log(gameData.results);
-        updateDisplayGames(gameData.results);
+        return gameData.results;
     } catch (err) {
-        console.error("Something went wron when getting games", err)
+        console.error("Something went wrong when getting games", err);
+        return [];
     }
 }
 
+async function displayAllGames() {
+    try {
+        allGames = await fetchAndDisplay(currentPage);
+        if (currentPage <= 1) {
+            showLessButton.style.display = "none";
+        } else {
+            showLessButton.style.display = "block";
+        }
+        updateDisplayGames(allGames);
+    } catch (error) {
+        console.error("Error fetching games:", error);
+    }
+}
 
-
-// Funksjon: lager lokale variabler. Elementer for spill info
-function gameElements(game, gamesContainer) {
-    
-    //div element for spill informasjon
+// Funksjon for å lage elementer for hvert spill
+function gameElements(game) {
     const createGameDiv = document.createElement("div");
     createGameDiv.classList.add("game_elements");
     gamesContainer.appendChild(createGameDiv);
 
-    // for viderføring
-    createGameDiv.id = `game-${game.id}`;
+    // Spill navn
+    const createGameName = document.createElement("div");
+    createGameName.classList.add("game_name");
+    createGameDiv.appendChild(createGameName);
 
-  // Spill navn
-const createGameName = document.createElement("div");
-createGameName.classList.add("game_name");
-createGameDiv.appendChild(createGameName);
-
-const indexOfColon = game.name.indexOf(':');
-if (indexOfColon !== -1) {
-    const [firstPart, secondPart] = game.name.split(':').map(part => part.trim());
-    const firstPartElement = document.createElement("h2");
-    firstPartElement.classList.add('first_gameName'); 
-    firstPartElement.textContent = firstPart;
-    const secondPartElement = document.createElement("h3");
-    secondPartElement.classList.add("second_gameName"); 
-    secondPartElement.textContent = secondPart;
-    createGameName.appendChild(firstPartElement);
-    createGameName.appendChild(secondPartElement);
-} else {
-    createGameName.textContent = game.name;
-}
+    const indexOfColon = game.name.indexOf(":");
+    if (indexOfColon !== -1) {
+        const [firstPart, secondPart] = game.name.split(":").map(part => part.trim());
+        const firstPartElement = document.createElement("h2");
+        firstPartElement.classList.add("first_gameName"); 
+        firstPartElement.textContent = firstPart;
+        const secondPartElement = document.createElement("h3");
+        secondPartElement.classList.add("second_gameName"); 
+        secondPartElement.textContent = secondPart;
+        createGameName.appendChild(firstPartElement);
+        createGameName.appendChild(secondPartElement);
+    } else {
+        createGameName.textContent = game.name;
+    }
 
     // Spill bilde
     const createImage = document.createElement("img");
@@ -69,7 +88,6 @@ if (indexOfColon !== -1) {
     createImage.src = game.background_image;
     createImage.alt = game.name;
     createGameDiv.appendChild(createImage);
-
 
     // Spill vurdering
     const createRating = document.createElement("p");
@@ -80,63 +98,84 @@ if (indexOfColon !== -1) {
     // Spill informasjon
     const showGameInfo = document.createElement("p");
     showGameInfo.classList.add("show_game_info");
-    showGameInfo.innerText = "Show more";
+    showGameInfo.innerText = "Enter";
     createGameDiv.appendChild(showGameInfo);
-
-
-
 
     // styling
     // spill div
     createGameDiv.style.border = "1px solid #ccc";
     createGameDiv.style.borderRadius = "8px";
     createGameDiv.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-    createGameDiv.style.backgroundColor = "#fff";
+    createGameDiv.style.backgroundColor = "#423f2f";
 
     //bilde
     createImage.style.width = "300px";
     createImage.style.height = "170px";
 
-
-    // Spill informasjon
-    showGameInfo.style.display = "none";
+    // rating
     createRating.style.fontSize = "20px";
     createRating.style.fontWeight = "bold";
 
+    // Spill informasjon
+    showGameInfo.style.fontSize = "25px"
+    showGameInfo.style.fontWeight = "bold"
+    showGameInfo.style.color = "red"
+
+    showGameInfo.style.display = "none";
     
 
     // hover-effekt
     createGameDiv.addEventListener("mouseover", function () {
         showGameInfo.style.display = "block";
-        createGameDiv.style.backgroundColor = "#f0f0f0"; 
+        createGameDiv.style.backgroundColor = "#323f2f"; 
     });
 
     // Fjern hover-effekten
     createGameDiv.addEventListener("mouseout", function () {
-        createGameDiv.style.backgroundColor = "#fff";
+        createGameDiv.style.backgroundColor = "#423f2f";
         showGameInfo.style.display = "none";
     });
 
     // Legg til en klikk-lytter på spilldiven
     createGameDiv.addEventListener("click", function () {
-        handleGameClick(game.id);
+        goToGameInfo(game.id);
     });
 
     return createGameDiv;
 }
 
-function handleGameClick(gameId) {
-    const infoPage = `game-info.html?gameId=${gameId}`; 
-
-    // Viderekoble til den andre siden
+// overføring
+function goToGameInfo(gameId) {
+    const infoPage = `game-info.html?gameId=${gameId}`;
     location.href = infoPage;
 }
 
-// funksjon for å itere gjennom spillene og kalle gameElements for hvertspill
+// Funksjon for å oppdatere visningen av spill
 function updateDisplayGames(games) {
-    games.forEach(game => {
-        gameElements(game, gamesContainer);
-    });
+    if (games.length === 0) {
+        gamesContainer.innerHTML = "No games found.";
+    } else {
+        gamesContainer.innerHTML = "";
+        games.forEach(game => {
+            const gameElement = gameElements(game);
+            gamesContainer.appendChild(gameElement);
+        });
+    }
 }
 
-fetchAndDisplay()
+// side navigering
+function showLessGames() {
+    currentPage--;
+    if (currentPage < 1) {
+        currentPage = 1;
+    }
+    displayAllGames();
+}
+
+function showMoreGames() {
+    currentPage++;
+    displayAllGames();
+}
+
+// Kjører funksjonen for å vise spillene når siden lastes
+displayAllGames();
