@@ -26,5 +26,5 @@ allGamesData()
 
 // Funksjon: lager lokale variabler. Elementer for spill info
 function gameElements(game, gameContainer){
-
+    
 }
