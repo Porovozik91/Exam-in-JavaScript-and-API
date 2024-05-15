@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Account</title>
+    <link rel="stylesheet" href="./css/global.css">
 </head>
 <body>
     <header>
@@ -17,8 +18,8 @@
       </header>
     <main>
         <div>
-            <button>Login</button>
-            <button>Sign Up</button>
+            <button onclick="changeForm('loginSection', 'signupSection');">Login</button>
+            <button onclick="changeForm('signupSection', 'loginSection');">Sign Up</button>
         </div>
         <section id="loginSection">
             <!-- Login Form -->
@@ -56,5 +57,12 @@
         </section>
         
     </main>
+    
+    <script>
+        function changeForm(showId, hideId) {
+            document.getElementById(showId).style.display = "block";
+            document.getElementById(hideId).style.display = "none";
+        }
+    </script>
 </body>
 </html>

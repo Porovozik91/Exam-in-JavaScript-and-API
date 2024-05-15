@@ -63,20 +63,3 @@ p{
     font-size: 20px;
     text-align: center;
 }
-
-.links{
-    display: flex;
-    justify-content:space-evenly;
-    font-size: 20px;
-    color: white;
-}
-
-.links a{
-    font-size: 22px;
-    font-weight: bold;
-    color: white;
-}
-
-.links a:hover{
-    color: #95ed7f;
-}

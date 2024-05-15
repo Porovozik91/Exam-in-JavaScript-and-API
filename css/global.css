@@ -14,3 +14,20 @@ header{
     background-color: rgb(98, 111, 106);
     padding: 20px;
 }
+
+.links{
+    display: flex;
+    justify-content:space-evenly;
+    font-size: 20px;
+    color: white;
+}
+
+.links a{
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+}
+
+.links a:hover{
+    color: #95ed7f;
+}
