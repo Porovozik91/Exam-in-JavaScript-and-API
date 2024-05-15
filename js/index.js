@@ -149,22 +149,6 @@ function gameElements(game) {
     return createGameDiv;
 }
 
-
-
-
-// Funksjon for å oppdatere visningen av spill
-function updateDisplayGames(games) {
-    if (games.length === 0) {
-        gamesContainer.innerHTML = "No games found.";
-    } else {
-        gamesContainer.innerHTML = "";
-        games.forEach(game => {
-            const gameElement = gameElements(game);
-            gamesContainer.appendChild(gameElement);
-        });
-    }
-}
-
 searchForm.addEventListener('submit', function (event) {
     event.preventDefault();
     performSearch();
@@ -180,6 +164,20 @@ async function performSearch() {
         updateDisplayGames(searchedGames, gamesContainer);
     } else {
         searchInput.placeholder = 'Please enter a game name';
+    }
+}
+
+
+// Funksjon for å oppdatere visningen av spill
+function updateDisplayGames(games) {
+    if (games.length === 0) {
+        gamesContainer.innerHTML = "No games found.";
+    } else {
+        gamesContainer.innerHTML = "";
+        games.forEach(game => {
+            const gameElement = gameElements(game);
+            gamesContainer.appendChild(gameElement);
+        });
     }
 }
 
