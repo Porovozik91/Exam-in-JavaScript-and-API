@@ -1,12 +1,14 @@
 // Globale varibler
 const gamesContainer = document.getElementById("games_container");
-const searchForm = document.getElementById('search_for_games');
-const searchInput = document.getElementById('search_input');
+const searchForm = document.getElementById("search_for_games");
+const searchInput = document.getElementById("search_input");
+const genreFilter = document.getElementById("genre");
 const showLessButton = document.getElementById("show_less");
 const showMoreButton = document.getElementById("show_more");
 
 // addEventListenere til knapper
-searchInput.addEventListener('input', performSearch);
+searchInput.addEventListener("input", performSearch);
+genreFilter.addEventListener("change", filterGames);
 showLessButton.addEventListener("click", showLessGames);
 showMoreButton.addEventListener("click", showMoreGames);
 
@@ -16,9 +18,8 @@ gamesContainer.style.display = "flex";
 gamesContainer.style.flexWrap = "wrap";
 gamesContainer.style.justifyContent = "center";
 gamesContainer.style.gap = "2rem";
-gamesContainer.style.padding = "20px";
 gamesContainer.style.margin = "30px";
-gamesContainer.style.maxHeight = "70vh";
+gamesContainer.style.maxHeight = "59vh";
 gamesContainer.style.overflowY = "auto";
 
 
@@ -108,9 +109,8 @@ function gameElements(game) {
 
     // styling
     // spill div
-    createGameDiv.style.border = "1px solid #ccc";
-    createGameDiv.style.borderRadius = "8px";
-    createGameDiv.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
+    createGameDiv.style.border = "3px solid white";
+    createGameDiv.style.borderRadius = "20px";
     createGameDiv.style.backgroundColor = "#423f2f";
 
     //bilde
@@ -149,7 +149,7 @@ function gameElements(game) {
     return createGameDiv;
 }
 
-searchForm.addEventListener('submit', function (event) {
+searchForm.addEventListener("submit", function (event) {
     event.preventDefault();
     performSearch();
 });
@@ -163,10 +163,28 @@ async function performSearch() {
         const searchedGames = await fetchAndDisplay(searched);
         updateDisplayGames(searchedGames, gamesContainer);
     } else {
-        searchInput.placeholder = 'Please enter a game name';
+        searchInput.placeholder = "Please enter a game name";
     }
 }
 
+async function filterGames() {
+    [showMoreButton, showLessButton].forEach(button => {
+        button.style.display = "none";
+    });
+    
+    
+    let filtredGames = "";
+
+    const genreValue = genreFilter.value;
+    if (genreValue) {
+        filtredGames += `&genres=${genreValue}`;
+    }
+
+    // Hent spill basert på de valgte kriteriene
+    const games = await fetchAndDisplay(filtredGames);
+    console.log(games);
+    updateDisplayGames(games);
+}
 
 // Funksjon for å oppdatere visningen av spill
 function updateDisplayGames(games) {

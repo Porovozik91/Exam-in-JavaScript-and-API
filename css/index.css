@@ -12,6 +12,7 @@
    font-size: 24px;
    font-weight: bold;
    color: white;
+   text-align: center;
 }
 
 p{
@@ -42,7 +43,7 @@ p{
     padding-bottom: 20px;
 }
 
-.search_games{
+.search_games, .default{
     padding-top: 40px;
     display: flex;
     justify-content: center;
@@ -54,4 +55,28 @@ p{
     border-radius: 30px;
     padding-left: 20px;
     font-size: 22px;
+}
+
+#genre{
+    width: 150px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.links{
+    display: flex;
+    justify-content:space-evenly;
+    font-size: 20px;
+    color: white;
+}
+
+.links a{
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+}
+
+.links a:hover{
+    color: #95ed7f;
 }
