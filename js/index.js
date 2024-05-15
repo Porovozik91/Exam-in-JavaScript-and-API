@@ -2,7 +2,11 @@
 const gamesContainer = document.getElementById("games_container");
 
 
-
+// styling for globale variabler
+gamesContainer.style.display = "flex";
+gamesContainer.style.flexWrap = "wrap";
+gamesContainer.style.justifyContent = "center";
+gamesContainer.style.gap = "2rem";
 
 // Api
 const apiKey = "e14d894ca94643c489dcbb1a5f660d26";
