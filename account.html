@@ -6,6 +6,55 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <header>
+        <nav role="navigation">
+          <ul class="links">
+            <li><a href="./">All Games</a></li>
+            <li><a href="./my-collection.html">Game collection</a></li>
+            <li id="accountLink"><a href="./account.html">Account</a></li>
+          </ul>
+        </nav>
+      </header>
+    <main>
+        <div>
+            <button>Login</button>
+            <button>Sign Up</button>
+        </div>
+        <section id="loginSection">
+            <!-- Login Form -->
+            <h4>Log in</h4>
+            <form id="loginForm">
+                <div class="input">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" name="email" required />
+                </div>
+                <div class="input">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" required />
+                </div>
+                <button type="submit">Log In</button>
+            </form>
+        </section>
+        <section id="signupSection" style="display:none;">
+            <!-- Registration Form -->
+            <h4>Create account</h4>
+            <form id="signupForm">
+                <div class="input">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="input">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+        </section>
+        
+    </main>
 </body>
 </html>
