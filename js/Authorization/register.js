@@ -1,4 +1,4 @@
-// Lytter etter skjemainnsending og sender data asynkront til API-endepunktet.
+// Lytter etter signupForm submit og sender data til API-endepunktet.
 document.getElementById("signupForm").addEventListener("submit", async function(event) {
     event.preventDefault(); // ved skjemainnsending
     const userData = [{
@@ -27,7 +27,7 @@ document.getElementById("signupForm").addEventListener("submit", async function(
         console.log("Registration successful:", data);
         alert("Registration successful!");
     } catch (error) {
-        console.error("There was a problem with the registration process:", error);
+        console.error("Registration failed:", error);
         alert("Registration failed! " + error.message);
     }
 });
