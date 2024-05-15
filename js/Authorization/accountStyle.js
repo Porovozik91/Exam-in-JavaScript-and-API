@@ -94,14 +94,3 @@
                 button.style.backgroundColor = "#363cab";
             });
         });
-    
-        //fokus-effekten til button
-        buttons.forEach(button => {
-            button.addEventListener("focus", function() {
-                button.style.backgroundColor = "#218838";
-                button.style.outline = "none";
-            });
-            button.addEventListener("blur", function() {
-                button.style.backgroundColor = "#363cab";
-            });
-        });
