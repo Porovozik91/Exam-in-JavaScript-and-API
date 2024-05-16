@@ -96,9 +96,11 @@ function GameDetails(game) {
     createTags.textContent = `Tags: ${game.tags.map(tag => tag.name).join(", ")}`;
     gameContainer.appendChild(createTags);
 
+    // lytter til knappen
     const addToCollectionBtn = document.getElementById("addToCollectionBtn");
     addToCollectionBtn.addEventListener("click", addToCollection);
 
+    // Sjekker om brukeren er logget inn
     function addToCollection() {
         const userName = localStorage.getItem("userName");
         if (!userName) {
@@ -106,12 +108,16 @@ function GameDetails(game) {
             return;
         }
 
-        saveGameDataLocally(game, userName);
+        saveGameLocally(game, userName);
+        saveGameApi(game)
+        
+        // fjerner lytter etter den er brukt
         addToCollectionBtn.removeEventListener("click", addToCollection);
     }
 }
 
-function saveGameDataLocally(game, userName) {
+// funksjon for å lagre lokalt
+function saveGameLocally(game, userName) {
     const data = {
         "name": game.name,
         "image": game.background_image,
@@ -139,6 +145,48 @@ function saveGameDataLocally(game, userName) {
     }
 }
 
+// Funskjon for å lagre i Api, post metode
+async function saveGameApi(game) {
+    try {
+        const apiUrl = "https://crudapi.co.uk/api/v1/game-info";
+        const token = "ke8k5JJTgj6rskLTa0qZNaLIIW7LIbtUTw2vojGVCcPNirYdvQ";
+
+        const data = [{
+            "name": game.name,
+            "image": game.background_image,
+            "description": game.description,
+            "genres": game.genres.map(genre => genre.name),
+            "released": game.released,
+            "platforms": game.platforms.map(platform => platform.platform.name),
+            "rating": game.rating,
+            "rating_top": game.rating_top,
+            "metacritic": game.metacritic,
+            "stores": game.stores.map(store => store.store.name),
+            "tags": game.tags.map(tag => tag.name)
+        }];
+
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to post game details to API');
+        }
+
+        const responseData = await response.json();
+        console.log('Game details sent to API:', responseData);
+    } catch (error) {
+        console.error('Error sending game details to API:', error.message);
+        alert('Sending game details failed! ' + error.message);
+    }
+}
+
+// Lytter til knappen og viderefører til neste side
 document.getElementById("SavedInfoBtn").addEventListener("click", function () {
     location.href = "./my-collection.html";
 });
