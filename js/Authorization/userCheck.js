@@ -37,15 +37,14 @@ if (userName) {
 
 } else {
     // påminnelse om å logge inn
-    accountLink.innerHTML = '<a href="./account.html">Log in</a>';
-    const warning = document.createElement('p');
-    warning.style.background = 'red';
-    warning.style.color = 'white';
-    warning.style.padding = '10px';
+    accountLink.innerHTML = `<a href="./account.html">Log in</a>`;
+    const warning = document.createElement("p");
+    warning.style.background = "red";
+    warning.style.color = "white";
+    warning.style.padding = "10px";
     warning.style.textAlign = "center";
-    warning.textContent = 'You are not logged in. Please log in to access your account.';
+    warning.textContent = "You are not logged in. Please log in to access your account.";
     mainTag.insertBefore(warning, mainTag.firstChild);
-    collectionList.style.display = "none"; 
 }
 
 // funksjon for å logge ut

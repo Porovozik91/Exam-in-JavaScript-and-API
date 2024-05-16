@@ -39,11 +39,11 @@ async function fetchAndDisplay(searchedGames = "",fromPage = 1) {
         if (!res.ok) {
             throw new Error("Failed to fetch games. Please try again later.");
         }
-        const gameData = await res.json();
-        console.log(gameData.results);
-        return gameData.results;
-    } catch (err) {
-        console.error("Something went wrong when getting games", err);
+        const data = await res.json();
+        console.log(data.results);
+        return data.results;
+    } catch (error) {
+        console.error("Something went wrong when getting games", error);
         return [];
     }
 }

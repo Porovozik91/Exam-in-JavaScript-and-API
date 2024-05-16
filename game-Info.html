@@ -4,8 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game information</title>
+    <link rel="stylesheet" href="./css/global.css" />
 </head>
 <body>
+    <header>
+        <nav role="navigation">
+          <ul class="links">
+            <li><a href="./">All Games</a></li>
+            <li><a href="./my-collection.html">Game collection</a></li>
+            <li id="accountLink"><a href="./account.html">Account</a></li>
+          </ul>
+        </nav>
+      </header>
     <!-- Detaljert spill informasjon på det valgte spillet -->
     <main>
         <section id="game_details">
@@ -17,5 +27,6 @@
         <button id="myCollectionBtn">Go to My Collection</button>
     </section>
     <script src="./js/Authorization/userCheck.js"></script>
+    <script src="./js/game-info.js"></script>
 </body>
 </html>
