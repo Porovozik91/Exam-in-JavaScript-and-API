@@ -45,41 +45,49 @@ function GameDetails(game) {
     createImage.alt = game.name;
     gameContainer.appendChild(createImage);
 
+    // Beskrivelse
     const createDescription = document.createElement("p");
     createDescription.classList.add("game_describe")
     createDescription.innerHTML = game.description;
     gameContainer.appendChild(createDescription);
 
+    // Sjangree
     const createGenres = document.createElement("p");
     createGenres.classList.add("game_genres");
     createGenres.textContent = `Genres: ${game.genres.map(genre => genre.name).join(", ")}`;
     gameContainer.appendChild(createGenres);
 
+    // Utgivelse
     const createReleased = document.createElement("p");
     createReleased.classList.add("game_released");
     createReleased.textContent = `Released: ${game.released}`;
     gameContainer.appendChild(createReleased);
 
+    //Platform
     const createPlatform = document.createElement("p");
     createPlatform.classList.add("game_platform");
     createPlatform.textContent = `Platforms: ${game.platforms.map(platform => platform.platform.name).join(", ")}`;
     gameContainer.appendChild(createPlatform);
 
+    //Vurdering
     const createRating = document.createElement("p");
     createRating.classList.add("game_rating");
     createRating.textContent = `Rating: ${game.rating} out of ${game.rating_top}`;
     gameContainer.appendChild(createRating);
 
+    // Metacritic
     const createMetacritic = document.createElement("p");
     createMetacritic.classList.add("game_metacritic");
     createMetacritic.textContent = `Metacritic Score: ${game.metacritic}`;
     gameContainer.appendChild(createMetacritic);
 
+    // Butikker som selger
     const createStores = document.createElement("p");
     createStores.classList.add("game_stores");
     createStores.textContent = `Where to buy: ${game.stores.map(store => store.store.name).join(", ")}`;
     gameContainer.appendChild(createStores);
 
+    // Spill tags
     const createTags = document.createElement("p");
     createTags.classList.add("game_tags");
     createTags.textContent = `Tags: ${game.tags.map(tag => tag.name).join(", ")}`;
