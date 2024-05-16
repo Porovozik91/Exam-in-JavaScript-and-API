@@ -29,4 +29,4 @@ async function displayGameDetails(gameId) {
     }
 }
 
-displayGameDetails();
+displayGameDetails(gameId);
