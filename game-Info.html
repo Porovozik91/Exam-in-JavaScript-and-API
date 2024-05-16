@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game information</title>
     <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/game-info.css">
 </head>
 <body>
     <header>
@@ -19,13 +20,14 @@
     <!-- Detaljert spill informasjon på det valgte spillet -->
     <main>
         <section id="game_details">
-        <h1>Game Details</h1>
         <div id="game_details_container"></div>
-        <button id="chooseAnotherBtn">Choose another game</button>
+    </section>
+
+    <div class="buttons"><button id="chooseAnotherBtn">Choose another game</button>
         <button id="addToCollectionBtn">Add to Collection</button>
         <button id="SavedInfoBtn">View Saved Info</button>
-        <button id="myCollectionBtn">Go to My Collection</button>
-    </section>
+        <button id="myCollectionBtn">Go to My Collection</button></div>
+    </main>
     <script src="./js/Authorization/userCheck.js"></script>
     <script src="./js/game-info.js"></script>
 </body>

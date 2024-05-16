@@ -91,7 +91,7 @@ function GameDetails(game) {
     const createTags = document.createElement("p");
     createTags.classList.add("game_tags");
     createTags.textContent = `Tags: ${game.tags.map(tag => tag.name).join(", ")}`;
-    container.appendChild(createTags);
+    gameContainer.appendChild(createTags);
 }
 
 displayGameDetails(gameId);
