@@ -1,9 +1,9 @@
 // *Globale variabler
 // Lyttere for to knapper å navigere til sider
-document.getElementById("chooseAnotherBtn").onclick = function() {
+document.getElementById("chooseAnotherBtn").onclick = function () {
     location.href = "./index.html";
 };
-document.getElementById("myCollectionBtn").onclick = function() {
+document.getElementById("myCollectionBtn").onclick = function () {
     window.location.href = "./my-collection.html";
 };
 
@@ -47,9 +47,12 @@ function GameDetails(game) {
 
     // Beskrivelse
     const createDescription = document.createElement("p");
-    createDescription.classList.add("game_describe")
-    createDescription.innerHTML = game.description;
+    createDescription.classList.add("game_describe");
+    // Fjerner den spanske delen av beskrivelsen
+    const englishDescription = game.description.split("<p>Español")[0];
+    createDescription.innerHTML = englishDescription;
     gameContainer.appendChild(createDescription);
+
 
     // Sjangree
     const createGenres = document.createElement("p");
@@ -92,6 +95,52 @@ function GameDetails(game) {
     createTags.classList.add("game_tags");
     createTags.textContent = `Tags: ${game.tags.map(tag => tag.name).join(", ")}`;
     gameContainer.appendChild(createTags);
+
+    const addToCollectionBtn = document.getElementById("addToCollectionBtn");
+    addToCollectionBtn.addEventListener("click", addToCollection);
+
+    function addToCollection() {
+        const userName = localStorage.getItem("userName");
+        if (!userName) {
+            alert("You must be logged in to add a game to your collection.");
+            return;
+        }
+
+        saveGameDataLocally(game, userName);
+        addToCollectionBtn.removeEventListener("click", addToCollection);
+    }
 }
+
+function saveGameDataLocally(game, userName) {
+    const data = {
+        "name": game.name,
+        "image": game.background_image,
+        "description": game.description,
+        "genres": game.genres.map(genre => genre.name),
+        "released": game.released,
+        "platforms": game.platforms.map(platform => platform.platform.name),
+        "rating": game.rating,
+        "rating_top": game.rating_top,
+        "metacritic": game.metacritic,
+        "stores": game.stores.map(store => store.store.name),
+        "tags": game.tags.map(tag => tag.name)
+    };
+
+    let userData = JSON.parse(localStorage.getItem(userName)) || [];
+    userData.push(data);
+    localStorage.setItem(userName, JSON.stringify(userData));
+
+    if (localStorage.getItem(userName)) {
+        console.log("Game added to your game collection!");
+        alert("Game added to your game collection!")
+    } else {
+        console.log("Something went wront. Game not added to your collection!");
+        alert("Something went wront. Game not added to your collection!")
+    }
+}
+
+document.getElementById("SavedInfoBtn").addEventListener("click", function () {
+    location.href = "./my-collection.html";
+});
 
 displayGameDetails(gameId);
