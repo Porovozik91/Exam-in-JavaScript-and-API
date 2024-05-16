@@ -180,7 +180,7 @@ async function filterGames() {
         filtredGames += `&genres=${genreValue}`;
     }
 
-    // Hent spill basert på de valgte kriteriene
+    // Henter spill basert på de valgte kriteriene
     const games = await fetchAndDisplay(filtredGames);
     console.log(games);
     updateDisplayGames(games);
@@ -218,5 +218,5 @@ function goToGameInfo(gameId) {
     const infoPage = `game-info.html?gameId=${gameId}`;
     location.href = infoPage;
 }
-// Kjører funksjonen for å vise spillene når siden lastes
+
 displayAllGames();
