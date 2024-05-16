@@ -3,9 +3,9 @@
 document.getElementById("chooseAnotherBtn").onclick = function () {
     location.href = "./index.html";
 };
-document.getElementById("myCollectionBtn").onclick = function () {
-    window.location.href = "./my-collection.html";
-};
+document.getElementById("SavedInfoBtn").addEventListener("click", function () {
+    location.href = "./my-collection.html";
+});
 
 const gameContainer = document.getElementById("game_details_container");
 // Henter game id i parameterverdien fra søkestrengen
@@ -185,10 +185,5 @@ async function saveGameApi(game) {
         alert('Sending game details failed! ' + error.message);
     }
 }
-
-// Lytter til knappen og viderefører til neste side
-document.getElementById("SavedInfoBtn").addEventListener("click", function () {
-    location.href = "./my-collection.html";
-});
 
 displayGameDetails(gameId);

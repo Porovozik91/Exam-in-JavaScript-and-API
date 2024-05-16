@@ -3,11 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Collection</title>
+    <link rel="stylesheet" href="./css/global.css">
 </head>
 <body>
-    
+    <header>
+        <nav role="navigation">
+          <ul class="links">
+            <li><a href="./">All Games</a></li>
+            <li><a href="./my-collection.html">Game collection</a></li>
+            <li id="accountLink"><a href="./account.html">Account</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <h1>My Game Collection</h1>
+    <main>
+        
+      <section id="games_container">
+        <!-- Spill vil bli lagt til her dynamisk -->
+      </section>
+
+      <section id="editModal" class="modal">
+        <div class="modal-content">
+          <h2>Edit Game</h2>
+          <form id="editForm">
+            <!-- Input-felter for å redigere spillinformasjon -->
+            <label for="editName">Name:</label>
+            <input
+              type="text"
+              id="editName"
+              name="editName"
+              required
+            /><br /><br />
+
+            <label for="editImage">Image URL:</label>
+            <input type="text" id="editImage" name="editImage" /><br /><br />
+
+            <label for="editGenres">Genres:</label>
+            <input type="text" id="editGenres" name="editGenres" /><br /><br />
+
+            <label for="editReleased">Released:</label>
+            <input
+              type="text"
+              id="editReleased"
+              name="editReleased"
+            /><br /><br />
+
+            <label for="editRating">Rating:</label>
+            <input
+              type="number"
+              id="editRating"
+              name="editRating"
+              min="0"
+              max="10"
+              step="0.1"
+            /><br /><br />
+
+            <label for="editRatingTop">Rating Top:</label>
+            <input
+              type="number"
+              id="editRatingTop"
+              name="editRatingTop"
+              min="0"
+              max="10"
+              step="0.1"
+            /><br /><br />
+
+            <label for="editMetacritic">Metacritic Score:</label>
+            <input
+              type="number"
+              id="editMetacritic"
+              name="editMetacritic"
+              min="0"
+              max="100"
+            /><br /><br />
+
+            <label for="editPlatforms">Platforms:</label>
+            <input
+              type="text"
+              id="editPlatforms"
+              name="editPlatforms"
+            /><br /><br />
+
+            <label for="editStores">Where to buy:</label>
+            <input type="text" id="editStores" name="editStores" /><br /><br />
+
+            <label for="editTags">Tags:</label>
+            <input type="text" id="editTags" name="editTags" /><br /><br />
+
+            <button type="submit">Save</button>
+            <span class="close">&times;</span>
+          </form>
+        </div>
+      </section>
+    </main>
+
     <script src="./js/Authorization/userCheck.js"></script>
+    <script src="./js/my-collection.js"></script>
 </body>
 </html>
 
