@@ -63,7 +63,7 @@ async function displayAllGames() {
 }
 
 // Funksjon for å lage elementer for hvert spill
-function gameElements(game) {
+function GameDetails(game) {
     const createGameDiv = document.createElement("div");
     createGameDiv.classList.add("game_elements");
     gamesContainer.appendChild(createGameDiv);
@@ -193,7 +193,7 @@ function updateDisplayGames(games) {
     } else {
         gamesContainer.innerHTML = "";
         games.forEach(game => {
-            const gameElement = gameElements(game);
+            const gameElement = GameDetails(game);
             gamesContainer.appendChild(gameElement);
         });
     }

@@ -1,5 +1,5 @@
 // Globalt js fil som sjekker om brukeren er logget inn bassert på user data som er lagret localt local localStorage
-
+const gameContainerr = document.getElementById("games_container"); // Side 3
 const mainTag = document.querySelector("main");
 const userName = localStorage.getItem("userName");
 const accountLink = document.getElementById("accountLink");
@@ -45,6 +45,7 @@ if (userName) {
     warning.style.textAlign = "center";
     warning.textContent = "You are not logged in. Please log in to access your account.";
     mainTag.insertBefore(warning, mainTag.firstChild);
+    gameContainerr.style.display = "none";
 }
 
 // funksjon for å logge ut

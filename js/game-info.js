@@ -24,13 +24,13 @@ async function displayGameDetails(gameId) {
         }
         const data = await res.json();
         //console.log(data);
-        GameDetails(data);
+        gameDetails(data);
     } catch (error) {
         console.error("Error fetching game details:", error);
     }
 }
 
-function GameDetails(game) {
+function gameDetails(game) {
 
     // Navn
     const createGameName = document.createElement("h2");
