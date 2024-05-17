@@ -31,3 +31,7 @@ header{
 .links a:hover{
     color: #95ed7f;
 }
+
+li{
+    display: flex;
+}

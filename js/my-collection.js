@@ -21,19 +21,19 @@ function gameCollection(game) {
     gameInfo.classList.add("game_div");
     gameContainerr.appendChild(gameInfo);
 
+      // navn
+      const name = document.createElement("h3");
+      name.textContent = game.name;
+      name.classList.add("game_title");
+      gameInfo.appendChild(name);
+
     //  bilde
     const image = document.createElement("img");
-    image.style.width = "200px";
     image.src = game.image;
     image.alt = game.name;
     image.classList.add("game_image");
     gameInfo.appendChild(image);
 
-    //  tittel
-    const name = document.createElement("h3");
-    name.textContent = game.name;
-    name.classList.add("game_title");
-    gameInfo.appendChild(name);
 
     //  sjangre
     const genres = document.createElement("p");
@@ -103,7 +103,7 @@ function gameCollection(game) {
         gameInfo.appendChild(editButton);
     }
 
-    //  sletteknapp
+    //  Knappen og lytter til knappen som sletter spill localt
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
     deleteButton.addEventListener("click", () => {

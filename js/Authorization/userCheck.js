@@ -7,7 +7,7 @@ const accountLink = document.getElementById("accountLink");
 // brukernavnet i navigasjonsmenyen
 if (userName) {
     accountLink.innerHTML = `Welcome ${userName}`;
-    const logOutBtn = document.createElement("button");
+    const logOutBtn = document.createElement("a");
     logOutBtn.classList.add("logOutBtn");
     logOutBtn.innerHTML = "Log Out";
     logOutBtn.addEventListener("click", logout); 
@@ -23,9 +23,11 @@ if (userName) {
     logOutBtn.style.fontSize = "18px";
     logOutBtn.style.fontWeight = "bold";
     logOutBtn.style.backgroundColor = "white";
+    logOutBtn.style.color = "black";
+
     logOutBtn.style.borderRadius = "10px";
 
-    logOutBtn.addEventListener("mouseenter", function () {
+    logOutBtn.addEventListener("mouseover", function () {
         logOutBtn.style.backgroundColor = "#95ed7f";
     });
 
