@@ -22,7 +22,7 @@ async function gameDataApi() {
         }
 
         const data = await res.json();
-        gameContainerr.innerHTML = ""; // Tøm eksisterende innhold
+        gameContainerr.innerHTML = "";
         data.items.forEach(game => {
             console.log(data);
             gameCollection(game);

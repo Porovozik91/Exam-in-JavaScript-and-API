@@ -167,7 +167,7 @@ editForm.addEventListener("submit", function(event) {
     editModal.style.display = "none";
 
     // Oppdater visningen av samlingen
-    displayCollection();
+    displayCollection(); 
 });
 
 // Funksjon som fjerner spillet fra lokal lagring
