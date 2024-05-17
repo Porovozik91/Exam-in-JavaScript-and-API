@@ -8,7 +8,7 @@ let editGame = null; // Varibel med tom tilstad // redigerer spillinformasjon ba
 function displayCollection() {
     const userName = localStorage.getItem("userName");
     const storedDataLocalStorage = JSON.parse(localStorage.getItem(userName)) || [];
-    gameContainerr.innerHTML = "";
+    gameContainerr.innerHTML = ""; // tøm
     storedDataLocalStorage.forEach(game => {
         console.log(game);
         gameCollection(game);
