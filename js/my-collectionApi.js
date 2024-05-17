@@ -18,18 +18,18 @@ async function gameDataApi() {
         });
 
         if (!res.ok) {
-            throw new Error('Failed to fetch game collection from API');
+            throw new Error("Failed to fetch game collection from API");
         }
 
         const data = await res.json();
-        gameContainerr.innerHTML = ''; // Tøm eksisterende innhold
+        gameContainerr.innerHTML = ""; // Tøm eksisterende innhold
         data.items.forEach(game => {
             console.log(data);
             gameCollection(game);
         });
     } catch (error) {
-        console.error('Error fetching game collection from API:', error.message);
-        alert('Fetching game collection failed! ' + error.message);
+        console.error("Error fetching game collection from API:", error.message);
+        alert("Fetching game collection failed! " + error.message);
     }
 }
 
@@ -94,6 +94,73 @@ function gameCollection(game) {
     tags.textContent = `Tags: ${game.tags.join(", ")}`;
     tags.classList.add("game_tags");
     gameInfo.appendChild(tags);
+
+
+    // redigering
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.addEventListener("click", () => {
+        document.getElementById("editName").value = game.name;
+        document.getElementById("editImage").value = game.image;
+        document.getElementById("editGenres").value = game.genres.join(", ");
+        document.getElementById("editReleased").value = game.released;
+        document.getElementById("editRating").value = game.rating;
+        document.getElementById("editRatingTop").value = game.rating_top;
+        document.getElementById("editMetacritic").value = game.metacritic;
+        document.getElementById("editPlatforms").value = game.platforms.join(", ");
+        document.getElementById("editStores").value = game.stores.join(", ");
+        document.getElementById("editTags").value = game.tags.join(", ");
+
+        editingGameUUID = game._uuid;
+        editModal.style.display = "block"; 
+    });
+    gameInfo.appendChild(editButton);
 }
+
+// endrer spill informasjon i api
+editForm.addEventListener("submit", async (event) => {
+    event.preventDefault(); 
+
+    const formData = new FormData(editForm);
+    const editedGame = {
+        name: formData.get("editName"),
+        image: formData.get("editImage"),
+        genres: formData.get("editGenres").split(",").map(genre => genre.trim()),
+        released: formData.get("editReleased"),
+        rating: parseFloat(formData.get("editRating")),
+        rating_top: parseFloat(formData.get("editRatingTop")),
+        metacritic: parseInt(formData.get("editMetacritic"), 10),
+        platforms: formData.get("editPlatforms").split(",").map(platform => platform.trim()),
+        stores: formData.get("editStores").split(",").map(store => store.trim()),
+        tags: formData.get("editTags").split(",").map(tag => tag.trim())
+    };
+
+    try {
+        const res = await fetch(`https://crudapi.co.uk/api/v1/game-info/${editingGameUUID}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(editedGame)
+        });
+
+        if (!res.ok) {
+            throw new Error("Failed to update game");
+        }
+
+        // Lukker modalen og oppdater samlingen
+        editModal.style.display = "none";
+        gameDataApi();
+    } catch (error) {
+        console.error("Error updating game:", error.message);
+        alert("Updating game failed! " + error.message);
+    }
+});
+
+// lukker modalen
+document.querySelector(".close").addEventListener("click", () => {
+    editModal.style.display = "none";
+});
 
 gameDataApi();
