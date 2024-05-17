@@ -40,8 +40,9 @@ if (userName) {
 } else {
     // påminnelse om å logge inn
     accountLink.innerHTML = `<a href="./account.html">Log in</a>`;
-    const warning = document.createElement("p");
+    const warning = document.createElement("h4");
     warning.style.background = "red";
+    warning.style.fontSize = "22px";
     warning.style.color = "white";
     warning.style.padding = "10px";
     warning.style.textAlign = "center";
