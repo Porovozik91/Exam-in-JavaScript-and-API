@@ -111,10 +111,38 @@ function gameCollection(game) {
         document.getElementById("editStores").value = game.stores.join(", ");
         document.getElementById("editTags").value = game.tags.join(", ");
 
-        editingGameUUID = game._uuid;
+        editGame = game._uuid;
         editModal.style.display = "block"; 
     });
     gameInfo.appendChild(editButton);
+
+      // sletter spill fra endepunktet
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.addEventListener("click", async () => {
+          if (confirm(`Are you sure you want to delete ${game.name}?`)) {
+              try {
+                  const res = await fetch(`https://crudapi.co.uk/api/v1/game-info/${game._uuid}`, {
+                      method: "DELETE",
+                      headers: {
+                          "Content-Type": "application/json",
+                          "Authorization": `Bearer ${token}`
+                      }
+                  });
+  
+                  if (!res.ok) {
+                      throw new Error("Failed to delete game");
+                  }
+  
+                  // Fjern spillet fra siden
+                  gameInfo.remove();
+              } catch (error) {
+                  console.error("Error deleting game:", error.message);
+                  alert("Deleting game failed! " + error.message);
+              }
+          }
+      });
+      gameInfo.appendChild(deleteButton);
 }
 
 // endrer spill informasjon i api
@@ -136,7 +164,7 @@ editForm.addEventListener("submit", async (event) => {
     };
 
     try {
-        const res = await fetch(`https://crudapi.co.uk/api/v1/game-info/${editingGameUUID}`, {
+        const res = await fetch(`https://crudapi.co.uk/api/v1/game-info/${editGame}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
