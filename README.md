@@ -25,6 +25,8 @@ Autorisasjon kreves for å se spill i samlingen.
 *Autorisasjon side: accaount.html 
 Tilhørende filer: login.js og register.js
 Siden er for registrering og innlogging.
+register.js: Lar brukeren registrere seg og lagrer registreringsinformasjonen i CRUD API.
+login.js: Tillater brukeren å logge inn ved å hente lagret brukerinformasjon fra CRUD API.
 
 *userChek.js
 Verifiserer brukerens innloggingsstatus og begrenser tilgangen 
