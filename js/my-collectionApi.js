@@ -3,16 +3,34 @@ const editForm = document.getElementById("editForm");
 editModal.style.display = "none";
 
 let editGame = null; // Varibel med tom tilstad // redigerer spillinformasjon basert på spillets navn
+const apiUrl = "https://crudapi.co.uk/api/v1/game-info";
+const token = "ke8k5JJTgj6rskLTa0qZNaLIIW7LIbtUTw2vojGVCcPNirYdvQ";
 
 // Funksjon for å vise spillkolleksjonen
-function displayCollection() {
-    const userName = localStorage.getItem("userName");
-    const storedDataLocalStorage = JSON.parse(localStorage.getItem(userName)) || [];
-    gameContainerr.innerHTML = "";
-    storedDataLocalStorage.forEach(game => {
-        console.log(game);
-        gameCollection(game);
-    });
+async function gameDataApi() {
+    try {
+        const res = await fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        if (!res.ok) {
+            throw new Error('Failed to fetch game collection from API');
+        }
+
+        const data = await res.json();
+        gameContainerr.innerHTML = ''; // Tøm eksisterende innhold
+        data.items.forEach(game => {
+            console.log(data);
+            gameCollection(game);
+        });
+    } catch (error) {
+        console.error('Error fetching game collection from API:', error.message);
+        alert('Fetching game collection failed! ' + error.message);
+    }
 }
 
 // Funksjon for å legge til et spill i samlingen
@@ -77,3 +95,5 @@ function gameCollection(game) {
     tags.classList.add("game_tags");
     gameInfo.appendChild(tags);
 }
+
+gameDataApi();
