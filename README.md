@@ -16,7 +16,7 @@ Ingen pålogging kreves for å se spillinformasjon, men påkrevd for å legge ti
 Enkel navigasjon mellom alle sider.
 
 *Samlingsside: my-collection
-Administrasjon av spillkolleksjon
+Administrasjon av spillkolleksjon.
 Tillater brukere å slette og endre spilldetaljer i sin samling.
 Bruker to separate JavaScript-filer for endring og sletting av spill, en for API og en for Local Storage.
 Lokalt lagrede spill vises kun for den autoriserte brukeren som la dem til i samlingen.
